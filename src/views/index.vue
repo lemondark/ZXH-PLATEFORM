@@ -57,8 +57,8 @@
           <template v-if="route.children">
             <el-submenu :key="index" :index="route.name">
               <template slot="title">
-                {{route.meta.name || route.name}}</template>
-              <el-menu-item v-for="(cRoute, cIndex) in route.children" :key="cIndex" :index="cRoute.name" :route="route.path+'/'+cRoute.path"><i class="el-icon-menu" v-html="cRoute.meta.icon"></i>{{cRoute.meta.name || cRoute.name}}</el-menu-item>
+                {{route.name}}</template>
+              <el-menu-item v-for="(cRoute, cIndex) in route.children" :key="cIndex" :index="cRoute.name" :route="'/'+route.route+'/'+cRoute.route"><i class="el-icon-menu"></i>{{cRoute.name}}</el-menu-item>
             </el-submenu>
           </template>
           <template v-else>
@@ -98,7 +98,6 @@ export default {
   components: {
   },
   data() {
-    console.log(this.$root.menuData);
     return {
       user: this.$root.userData,
       menus: this.$root.menuData

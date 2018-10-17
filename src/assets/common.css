@@ -4,17 +4,3 @@ html,body{
     margin: 0;
     padding: 0;
 }
-.g-center{
-    display: table-cell;
-
-    vertical-align: middle;
-}
-.page{
-    margin: 20px 0 0;
-
-    text-align: center;
-}
-
-.operation{
-    margin-bottom: 20px;
-}

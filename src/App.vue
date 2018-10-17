@@ -11,7 +11,7 @@ import Vue from 'vue';
 import instance from './api';
 import AllRoutesData from './router/fullpath';
 import * as util from './assets/util.js';
-
+ 
 // axios Interceptor
 let myInterceptor;
 
@@ -77,9 +77,10 @@ export default {
         array.map(key => {
           if (key.route) {
             let hashKey = ((base ? base + '/' : '') + key.route).replace(/^\//, '');
-            routeHash['/' + hashKey] = true;
             if (Array.isArray(key.children)) {
               setMenu2Hash(key.children, key.route);
+            } else {
+              routeHash['/' + hashKey] = true;
             }
           }
         });
@@ -96,7 +97,11 @@ export default {
       */
         let arrayMenus = util.buildMenu(userPermissions.menus);
         setMenu2Hash(arrayMenus);
+
+        // Save information for rendering menu.(This step is optional.)
+        this.$root.menuData = arrayMenus;
       }
+
       console.log(routeHash);
       // Get hash structure
       return routeHash;
@@ -124,7 +129,6 @@ export default {
       }
       findLocalRoute(AllRoutesData[0].children);
       // If the user does not have any routing authority
-
       if (!actualRouter || !actualRouter.length) {
         // clear token, refresh page will jump to login screen.
         util.session('token','');
@@ -161,10 +165,6 @@ export default {
         path: '*',
         redirect: '/404'
       }]));
-
-      // Save information for rendering menu.(This step is optional.)
-      this.$root.menuData = actualRouter;
-
     },
     signin: function(callback) {
       let vm = this;
@@ -223,7 +223,7 @@ export default {
         * Setting request permission control through resourcePermission
         */
 
-       // vm.setInterceptor(resourcePermission);
+        // vm.setInterceptor(resourcePermission);
         
         /*
         * Step 6
@@ -291,7 +291,7 @@ export default {
       this.$router.replace({path: '/login'});
     }
   },
-  created: function(newPath) {
+  created: function() {
     /*
     * Start from here!
     */

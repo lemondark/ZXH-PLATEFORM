@@ -6,7 +6,6 @@ require('./mock/mock.js');
 
 import App from './App.vue';
 import router from './router';
-console.log(App);
 
 Vue.use(ElementUI);
 
